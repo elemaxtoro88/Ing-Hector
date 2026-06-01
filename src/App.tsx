@@ -154,24 +154,13 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
     <div
       className={`service-card-flip reveal ${className} ${isFlipped ? 'is-flipped' : ''}`}
       onClick={() => {
-        if (!isFlipped) setIsFlipped(true);
+        if (window.innerWidth >= 768) {
+          setIsFlipped(!isFlipped);
+        }
       }}
     >
       <div className="service-card-inner">
-        {/* Front */}
-        <div className="service-card-front">
-          <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
-          <div className="service-overlay">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 rounded-lg bg-primary-500/20 backdrop-blur-md border border-primary-500/30">
-                <Icon className="w-5 h-5 text-primary-400" />
-              </div>
-              <h3 className="text-xl md:text-2xl font-bold text-white">{title}</h3>
-            </div>
-            <p className="text-xs text-primary-300 md:hidden font-medium uppercase tracking-wider">Toca para más info</p>
-          </div>
-        </div>
-        {/* Back */}
+        {/* Back Content (Info) - Shown ABOVE on Mobile via CSS */}
         <div className="service-card-back glass-card">
           <div className="p-3 rounded-xl bg-primary-500/10 border border-primary-500/20 mb-4 inline-block flex-shrink-0">
             <Icon className="w-6 h-6 text-primary-400" />
@@ -179,7 +168,7 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
           <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">{title}</h3>
           <p className="text-gray-200 mb-4 leading-relaxed text-sm md:text-base font-medium">{description}</p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2">
             {tags.map(tag => (
               <span key={tag} className="text-[10px] md:text-xs font-medium uppercase tracking-wider px-3 py-1 rounded-full bg-primary-500/10 text-primary-300 border border-primary-500/20">
                 {tag}
@@ -189,10 +178,24 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
 
           <button
             onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
-            className="mt-auto flex items-center gap-2 text-xs font-bold text-primary-400 md:hidden p-2 rounded-lg bg-white/5 border border-white/10"
+            className="mt-6 flex items-center gap-2 text-xs font-bold text-primary-400 hidden md:hidden p-2 rounded-lg bg-white/5 border border-white/10"
           >
             <ArrowLeft className="w-4 h-4" /> Volver a la imagen
           </button>
+        </div>
+
+        {/* Front Content (Image) - Shown BELOW on Mobile via CSS */}
+        <div className="service-card-front">
+          <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
+          <div className="service-overlay md:flex hidden">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 rounded-lg bg-primary-500/20 backdrop-blur-md border border-primary-500/30">
+                <Icon className="w-5 h-5 text-primary-400" />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-white">{title}</h3>
+            </div>
+            <p className="text-xs text-primary-300 md:hidden font-medium uppercase tracking-wider">Toca para más info</p>
+          </div>
         </div>
       </div>
     </div>
