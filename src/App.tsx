@@ -107,13 +107,52 @@ const Navbar = ({ setView, view }: { setView: (v: 'home' | 'contact' | 'quote' |
           {mobileMenuOpen ? <X /> : <Menu />}
         </button>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 pt-20">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => handleNavClick(item.id)}
+              className="text-2xl font-bold text-gray-200 hover:text-primary-400 transition-colors"
+            >
+              {item.label}
+            </button>
+          ))}
+          <button
+            className="btn-primary mt-4"
+            onClick={() => { setView('quote'); setMobileMenuOpen(false); }}
+          >
+            Presupuesto
+          </button>
+
+          <a
+            href="https://wa.link/k5qs8e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-green-400 font-medium"
+          >
+            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-green-400" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L.057 23.486a.75.75 0 0 0 .92.92l5.703-1.484A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.75 9.75 0 0 1-4.964-1.355l-.357-.213-3.706.965.984-3.62-.233-.373A9.75 9.75 0 1 1 12 21.75z" />
+            </svg>
+            WhatsApp
+          </a>
+        </div>
+      )}
     </nav>
   );
 };
 
 const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className = "" }: { title: string, description: string, imageSrc: string, tags: string[], icon: any, className?: string }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
   return (
-    <div className={`service-card-flip reveal ${className}`}>
+    <div
+      className={`service-card-flip reveal ${className} ${isFlipped ? 'is-flipped' : ''}`}
+      onClick={() => setIsFlipped(!isFlipped)}
+    >
       <div className="service-card-inner">
         {/* Front */}
         <div className="service-card-front">
@@ -123,8 +162,9 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
               <div className="p-2 rounded-lg bg-primary-500/20 backdrop-blur-md border border-primary-500/30">
                 <Icon className="w-5 h-5 text-primary-400" />
               </div>
-              <h3 className="text-2xl font-bold text-white">{title}</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-white">{title}</h3>
             </div>
+            <p className="text-xs text-primary-300 md:hidden font-medium uppercase tracking-wider">Toca para más info</p>
           </div>
         </div>
         {/* Back */}
@@ -132,11 +172,11 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
           <div className="p-3 rounded-xl bg-primary-500/10 border border-primary-500/20 mb-4 inline-block flex-shrink-0">
             <Icon className="w-6 h-6 text-primary-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-3">{title}</h3>
           <p className="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">{description}</p>
           <div className="flex flex-wrap gap-2 mt-auto">
             {tags.map(tag => (
-              <span key={tag} className="text-xs font-medium uppercase tracking-wider px-3 py-1 rounded-full bg-primary-500/10 text-primary-300 border border-primary-500/20">
+              <span key={tag} className="text-[10px] md:text-xs font-medium uppercase tracking-wider px-3 py-1 rounded-full bg-primary-500/10 text-primary-300 border border-primary-500/20">
                 {tag}
               </span>
             ))}
@@ -341,7 +381,7 @@ export default function App() {
         {view === 'home' && (
           <main>
             {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center justify-center pt-48 md:pt-40 overflow-hidden">
+            <section className="relative min-h-screen flex items-center justify-center pt-32 md:pt-40 overflow-hidden">
               <Particles />
 
               {/* Background Gradient */}
@@ -349,7 +389,7 @@ export default function App() {
 
               <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
                 <div className="text-left">
-                  <h1 className="text-[2.5rem] md:text-[4.25rem] font-extrabold mt-24 md:mt-16 tracking-tight leading-[1.1] mb-6 reveal">
+                  <h1 className="text-[2rem] md:text-[4.25rem] font-extrabold mt-16 md:mt-16 tracking-tight leading-[1.1] mb-6 reveal">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 glow-text">
                       Ingeniería en Telecomunicaciones y Control
                     </span>
@@ -410,7 +450,7 @@ export default function App() {
             </section>
 
             {/* Quiénes Somos Section */}
-            <section id="quienes-somos" className="py-32 relative border-b border-white/5 bg-gradient-to-b from-[#000000] to-[#0a0a0a]">
+            <section id="quienes-somos" className="py-16 md:py-32 relative border-b border-white/5 bg-gradient-to-b from-[#000000] to-[#0a0a0a]">
               <div className="max-w-7xl mx-auto px-6">
                 {/* Título Principal */}
                 <div className="text-center mb-20 reveal">
@@ -501,7 +541,7 @@ export default function App() {
             </section>
 
             {/* Services / Features */}
-            <section id="servicios" className="py-32 relative">
+            <section id="servicios" className="py-16 md:py-32 relative">
               <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-20 reveal">
                   <h2 className="text-4xl md:text-5xl font-bold mb-6">Áreas de Especialización y <span className="text-primary-400">Servicios</span></h2>
@@ -570,7 +610,7 @@ export default function App() {
             </section>
 
             {/* Fases del Servicio */}
-            <section className="py-32">
+            <section className="py-16 md:py-32">
               <div className="max-w-7xl mx-auto px-6">
                 <h2 className="text-3xl md:text-5xl font-bold text-center mb-16 reveal">Ciclo de Gestión del <span className="text-primary-400">Proyecto</span></h2>
 
@@ -622,7 +662,7 @@ export default function App() {
             </section>
 
             {/* Final CTA */}
-            <section className="py-32 relative overflow-hidden">
+            <section className="py-16 md:py-32 relative overflow-hidden">
               <div className="absolute inset-0 bg-primary-600/20 blur-[100px] rounded-full max-w-4xl mx-auto"></div>
               <div className="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
                 <h2 className="text-5xl md:text-7xl font-bold mb-8">¿Busca una solución técnica respaldada?</h2>

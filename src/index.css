@@ -197,7 +197,8 @@ h6 {
     transform-style: preserve-3d;
 }
 
-.service-card-flip:hover .service-card-inner {
+.service-card-flip:hover .service-card-inner,
+.service-card-flip.is-flipped .service-card-inner {
     transform: rotateY(180deg);
 }
 
@@ -245,9 +246,17 @@ h6 {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 2rem;
+    padding: 1.5rem;
     text-align: left;
     overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+
+    .service-overlay,
+    .service-card-back {
+        padding: 2rem;
+    }
 }
 
 .glow-text {
