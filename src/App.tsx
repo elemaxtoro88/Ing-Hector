@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Cpu, Menu, X, ArrowRight, ArrowLeft, BarChart, Shield, Zap, Network, Brain, CheckCircle, Radio, Settings, FileText, Building, Sun } from 'lucide-react';
+import { Cpu, Menu, X, ArrowRight, BarChart, Shield, Zap, Network, Brain, CheckCircle, Radio, Settings, FileText, Building, Sun } from 'lucide-react';
 import { ServiceDetailPage } from './ServiceDetailPage';
 
 // --- Components ---
@@ -151,14 +151,7 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    <div
-      className={`service-card-flip reveal ${className} ${isFlipped ? 'is-flipped' : ''}`}
-      onClick={() => {
-        if (window.innerWidth >= 768) {
-          setIsFlipped(!isFlipped);
-        }
-      }}
-    >
+    <div className={`service-card-flip reveal ${className} ${isFlipped ? 'is-flipped' : ''}`} onClick={() => { if (typeof window !== 'undefined' && window.innerWidth >= 768) setIsFlipped(!isFlipped); }}>
       <div className="service-card-inner">
         {/* Back Content (Info) - Shown ABOVE on Mobile via CSS */}
         <div className="service-card-back glass-card">
@@ -176,12 +169,7 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
             ))}
           </div>
 
-          <button
-            onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
-            className="mt-6 flex items-center gap-2 text-xs font-bold text-primary-400 hidden md:hidden p-2 rounded-lg bg-white/5 border border-white/10"
-          >
-            <ArrowLeft className="w-4 h-4" /> Volver a la imagen
-          </button>
+          {/* Mobile design is static */}
         </div>
 
         {/* Front Content (Image) - Shown BELOW on Mobile via CSS */}
@@ -194,7 +182,6 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-white">{title}</h3>
             </div>
-            <p className="text-xs text-primary-300 md:hidden font-medium uppercase tracking-wider">Toca para más info</p>
           </div>
         </div>
       </div>
