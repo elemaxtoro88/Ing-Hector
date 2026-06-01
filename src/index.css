@@ -211,6 +211,8 @@ h6 {
     backface-visibility: hidden;
     border-radius: 24px;
     overflow: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 .service-card-front {
@@ -240,8 +242,10 @@ h6 {
 }
 
 .service-card-back {
-    background-color: var(--bg-tertiary);
-    transform: rotateY(180deg);
+    background-color: #0c0c0e;
+    /* Solid background for better contrast */
+    transform: rotateY(180deg) translateZ(1px);
+    -webkit-transform: rotateY(180deg) translateZ(1px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
