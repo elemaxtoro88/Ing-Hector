@@ -176,13 +176,21 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
           </div>
           <h3 className="text-xl md:text-2xl font-bold text-white mb-3">{title}</h3>
           <p className="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">{description}</p>
-          <div className="flex flex-wrap gap-2 mt-auto">
+
+          <div className="flex flex-wrap gap-2 mb-6">
             {tags.map(tag => (
               <span key={tag} className="text-[10px] md:text-xs font-medium uppercase tracking-wider px-3 py-1 rounded-full bg-primary-500/10 text-primary-300 border border-primary-500/20">
                 {tag}
               </span>
             ))}
           </div>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
+            className="mt-auto flex items-center gap-2 text-xs font-bold text-primary-400 md:hidden p-2 rounded-lg bg-white/5 border border-white/10"
+          >
+            <ArrowLeft className="w-4 h-4" /> Volver a la imagen
+          </button>
         </div>
       </div>
     </div>
