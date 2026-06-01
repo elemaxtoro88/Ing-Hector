@@ -153,7 +153,9 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
   return (
     <div
       className={`service-card-flip reveal ${className} ${isFlipped ? 'is-flipped' : ''}`}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={() => {
+        if (!isFlipped) setIsFlipped(true);
+      }}
     >
       <div className="service-card-inner">
         {/* Front */}
@@ -174,8 +176,8 @@ const ServiceCard = ({ title, description, imageSrc, tags, icon: Icon, className
           <div className="p-3 rounded-xl bg-primary-500/10 border border-primary-500/20 mb-4 inline-block flex-shrink-0">
             <Icon className="w-6 h-6 text-primary-400" />
           </div>
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-3">{title}</h3>
-          <p className="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">{description}</p>
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">{title}</h3>
+          <p className="text-gray-200 mb-4 leading-relaxed text-sm md:text-base font-medium">{description}</p>
 
           <div className="flex flex-wrap gap-2 mb-6">
             {tags.map(tag => (
